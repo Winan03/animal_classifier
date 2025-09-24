@@ -12,9 +12,5 @@ __pycache__/
 # Archivos de logs
 *.log
 
-# Modelos pesados (solo si no quieres subirlos)
-*.h5
-*.pkl
-
 # Subidas de usuarios
 static/uploads/
