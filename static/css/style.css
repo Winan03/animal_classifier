@@ -1,0 +1,193 @@
+/* Paleta de colores (mantenida) */
+:root {
+    --primary-green: #388e3c;
+    --secondary-green: #66bb6a;
+    --accent-yellow: #ffc107;
+    --light-bg: #f9fbe7;
+    --dark-text: #212121;
+    --light-text: #ffffff;
+    --muted-text: #607d8b;
+    --card-bg: #ffffff;
+    --border-light: #e0e0e0;
+
+    /* Nuevas sombras y bordes para un look más limpio */
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --border-radius-clean: 10px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--primary-green) !important;
+    box-shadow: var(--shadow-soft);
+    padding: 1.25rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--light-text) !important;
+}
+
+/* Títulos y texto */
+.display-4 {
+    font-weight: 800;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+}
+
+.lead {
+    color: var(--muted-text);
+    font-size: 1.15rem;
+}
+
+/* Cards */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius-clean);
+    box-shadow: var(--shadow-soft);
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+    background-color: var(--primary-green);
+    color: var(--light-text);
+    border-bottom: none;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--border-radius-clean) var(--border-radius-clean) 0 0;
+    font-weight: 600;
+}
+
+/* Área de Upload */
+.upload-area {
+    border: 2px dashed var(--secondary-green);
+    border-radius: var(--border-radius-clean);
+    background-color: #f7fceb; /* Nuevo color de fondo más suave */
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    padding: 2rem;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-green);
+    background-color: #ecf0d9;
+}
+
+.upload-area i {
+    color: var(--primary-green);
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.upload-area:hover i {
+    transform: scale(1.1);
+}
+
+/* Botones */
+.btn {
+    border-radius: var(--border-radius-clean);
+    padding: 0.85rem 2.25rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-green);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+    background-color: #2e6a31;
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--muted-text);
+    color: var(--muted-text);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--muted-text);
+    color: var(--light-text);
+}
+
+/* Badges */
+.badge.bg-success {
+    background-color: var(--accent-yellow) !important;
+    color: var(--dark-text);
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 0.4em 1em;
+    font-size: 0.9em;
+}
+
+/* Información adicional (cards pequeñas) */
+.info-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius-clean);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.info-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-green);
+}
+
+/* Barras de progreso */
+.progress {
+    background-color: var(--border-light);
+    border-radius: var(--border-radius-clean);
+    height: 1rem;
+}
+
+.progress-bar {
+    border-radius: var(--border-radius-clean);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-text);
+    color: var(--muted-text);
+    padding: 2rem 0;
+    margin-top: 5rem;
+}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Resultado - Clasificador de Animales{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-image me-2"></i>
+                    Imagen Analizada
+                </h4>
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ url_for('static', filename='uploads/' + result.filename) }}" 
+                     class="img-fluid rounded shadow mb-3" style="max-height: 400px;">
+                
+                <div class="alert alert-{{ result.confidence_color }} alert-lg mb-4">
+                    <h3 class="mb-2">
+                        <i class="fas fa-paw me-2"></i>
+                        {{ result.predicted_class.upper() }}
+                    </h3>
+                    <div class="progress mb-2" style="height: 20px;">
+                        <div class="progress-bar bg-{{ result.confidence_color }}" 
+                             style="width: {{ result.confidence * 100 }}%">
+                            {{ result.confidence_percent }}
+                        </div>
+                    </div>
+                    <small>
+                        <i class="fas fa-info-circle me-1"></i>
+                        {{ result.confidence_text }}
+                    </small>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                        <i class="fas fa-camera me-1"></i>
+                        Analizar otra imagen
+                    </a>
+                    <button class="btn btn-outline-secondary" onclick="shareResult()">
+                        <i class="fas fa-share me-1"></i>
+                        Compartir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-info">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Top 3 Predicciones
+                </h5>
+            </div>
+            <div class="card-body">
+                {% for animal, probability in result.top_predictions %}
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <strong>{{ loop.index }}. {{ animal.title() }}</strong>
+                        {% if loop.index == 1 %}
+                            <span class="badge bg-success ms-2">Ganador</span>
+                        {% endif %}
+                    </div>
+                    <div class="text-end">
+                        <div class="progress" style="width: 150px; height: 20px;">
+                            <div class="progress-bar 
+                                     {% if loop.index == 1 %}bg-success
+                                     {% elif loop.index == 2 %}bg-warning
+                                     {% else %}bg-info{% endif %}" 
+                               style="width: {{ probability * 100 }}%">
+                                {{ "%.1f"|format(probability * 100) }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-secondary">
+                <h6 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Todas las Clasificaciones
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for animal, probability in result.all_probabilities.items() %}
+                    <div class="col-6 mb-2">
+                        <small class="text-muted">{{ animal.title() }}</small>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar" style="width: {{ probability * 100 }}%; background-color: var(--secondary-green);">
+                            </div>
+                        </div>
+                        <small class="text-muted">{{ "%.1f"|format(probability * 100) }}%</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Información del Análisis
+                </h6>
+                <ul class="list-unstyled mb-0 text-muted">
+                    <li><strong>Timestamp:</strong> {{ result.timestamp }}</li>
+                    <li><strong>Modelo:</strong> MobileNetV2 + Transfer Learning</li>
+                    <li><strong>Precisión del modelo:</strong> 92.13%</li>
+                    <li><strong>Clases totales:</strong> 10 animales</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ... (tu función shareResult() y otras utilidades JS permanecen igual) ...
+function shareResult() {
+    const text = `¡Mi imagen fue clasificada como {{ result.predicted_class }} con {{ result.confidence_percent }} de confianza!`;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Clasificador de Animales',
+            text: text,
+            url: window.location.href
+        });
+    } else {
+        navigator.clipboard.writeText(text + ' ' + window.location.href);
+        alert('Resultado copiado al portapapeles');
+    }
+}
+</script>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
